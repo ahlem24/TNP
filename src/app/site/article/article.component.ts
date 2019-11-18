@@ -1,25 +1,31 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import {ArtService} from '../art.service';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  @Input() nomArticle:String;
+  Articles:any[]
+ 
+  
+  constructor(private artService:ArtService) { }
+ 
+  ngOnInit() {
+    this.Articles=this.artService.articles;
+  }
+  
+  @Input() nom:String;
   @Input() image:String;
-  @Input() Id:String;
+  @Input() id:String;
   @Input() prix:number;
   
   onDetails(){
-    if(this.nomArticle=='T-shirt'){
-      console.log (this.Id);
+    if(this.nom=='T-shirt'){
+      console.log (this.id);
     }
   }
-  constructor() { }
-
-  
-  ngOnInit() {
-  }
-
+onModif(prix:number){
+  this.artService.modifier(prix);
+}
 }
